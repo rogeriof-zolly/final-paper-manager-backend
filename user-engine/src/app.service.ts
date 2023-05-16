@@ -15,17 +15,17 @@ export class AppService {
   }
 
   async getUserById(userId:string): Promise<UserEntity>{
-    const foundUser = await this.usersRepository.find(
+    const foundUser = await this.usersRepository.findOne(
       {
         where:{ id: userId }, 
         withDeleted: true
       }
     );
 
-    if(foundUser.length < 1)
+    if(!foundUser)
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
 
-    return foundUser[0];
+    return foundUser;
   }
 
   async create(user: CreateUserDto): Promise<UserEntity> {
