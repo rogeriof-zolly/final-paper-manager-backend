@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post, UseFilters, HttpException } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseFilters, HttpException, Put, Delete } from '@nestjs/common';
 import { AppService } from './app.service';
-import { UserDto } from './dtos/user.dto';
+import { CreateUserDto } from './dtos/create.dto';
+import { UpdateUserDto } from './dtos/update.dto';
 
 @Controller('users')
 export class AppController {
@@ -17,7 +18,17 @@ export class AppController {
   }
 
   @Post()
-  create(@Body() user: UserDto){
+  create(@Body() user: CreateUserDto){
     return this.appService.create(user);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updatedUserData: UpdateUserDto){
+    return this.appService.update(id, updatedUserData);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.appService.delete(id);
   }
 }
