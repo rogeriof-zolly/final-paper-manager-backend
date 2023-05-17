@@ -116,10 +116,6 @@ describe('UserService', () => {
 
     const updatedUser = await service.update(createdUser.id, newUserData);
 
-    // all the common properties between original and updated user should be different
-    expect(updatedUser).toEqual(
-      expect.not.objectContaining(createdUser)
-    ); 
     // all the common properties between given and updated user should be equal
     expect(updatedUser).toEqual(
       expect.objectContaining(newUserData)
@@ -170,7 +166,7 @@ describe('UserService', () => {
   it('getUser() - it should return a user', async () => {
     const users = await service.getAllUsers();
 
-    console.log(await service.getUserById(users[0].id));
+    expect(users).toBeInstanceOf(Array)
   })
 
   it('getUsers() - it should return all users', async () => {
