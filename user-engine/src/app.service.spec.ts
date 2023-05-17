@@ -120,6 +120,7 @@ describe('UserService', () => {
     expect(updatedUser).toEqual(
       expect.objectContaining(newUserData)
     );
+    console.log('oi');
     expect(updatedUser.id).toEqual(createdUser.id);
   })
 
